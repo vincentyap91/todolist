@@ -1,0 +1,174 @@
+.layout {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.header {
+  padding: 0 24px;
+  background: #6366f1;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content {
+  padding: 24px;
+  overflow: hidden;
+  background: #f0f2f5;
+}
+
+.todo-card {
+  max-width: 800px;
+  margin: 0 auto;
+  max-height: calc(100vh - 180px);
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.todo-list {
+  min-height: 100px;
+  padding: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.todo-list.dragging-over {
+  background: rgba(99, 102, 241, 0.05);
+  border-radius: 8px;
+}
+
+.todo-item-wrapper {
+  margin: 8px 0;
+  transition: transform 0.2s ease;
+  position: relative;
+}
+
+.todo-item-wrapper.dragging {
+  z-index: 999;
+}
+
+.todo-item {
+  background: white;
+  border-radius: 8px !important;
+  border: 1px solid #e5e7eb !important;
+  padding: 12px !important;
+  transition: all 0.2s ease !important;
+  margin: 0 !important;
+}
+
+.todo-item-wrapper.dragging .todo-item {
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15);
+  border-color: #6366f1 !important;
+  transform: scale(1.02);
+}
+
+.todo-item-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.drag-handle {
+  cursor: grab;
+  padding: 8px;
+  border-radius: 4px;
+  color: #9ca3af;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drag-handle:hover {
+  background: #f3f4f6;
+  color: #6366f1;
+}
+
+.dragging .drag-handle {
+  cursor: grabbing;
+  color: #6366f1;
+  background: #f3f4f6;
+}
+
+.todo-text {
+  flex: 1;
+  margin: 0 12px;
+  color: #1f2937;
+}
+
+.todo-text.completed {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+[data-rbd-placeholder-context-id] {
+  margin: 8px 0;
+  min-height: 60px;
+  background-color: rgba(99, 102, 241, 0.1);
+  border-radius: 8px;
+  border: 2px dashed #6366f1;
+}
+
+.ant-card-body {
+  max-height: calc(100vh - 220px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #6366f1 #f3f4f6;
+}
+
+.ant-card-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ant-card-body::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 3px;
+}
+
+.ant-card-body::-webkit-scrollbar-thumb {
+  background: #6366f1;
+  border-radius: 3px;
+}
+
+/* 优化动画性能 */
+.todo-item-wrapper,
+.todo-item,
+.todo-item-content {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* 移动端优化 */
+@media (hover: none) and (pointer: coarse) {
+  .drag-handle {
+    padding: 12px;
+  }
+  
+  .todo-item-content {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-content {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 0;
+  }
+
+  .content {
+    padding: 16px;
+  }
+
+  .todo-item-content {
+    flex-wrap: wrap;
+  }
+}

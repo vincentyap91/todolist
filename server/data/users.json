@@ -1,0 +1,37 @@
+{
+  "users": {
+    "admin": {
+      "username": "admin",
+      "password": "$2a$10$7N.KJcF5YDMXr9Ly4Jb6oeS9ityq906eZaCEuIXX5Ho1nD909AbDS",
+      "role": "SUPER_ADMIN",
+      "createdAt": "2025-02-26T04:35:32.040Z",
+      "isApproved": true
+    },
+    "vincent": {
+      "username": "vincent",
+      "password": "$2a$10$e/Sn7LpVQizmnMDqmJlbLOolru4gFGtPi9p33uWL17lXdahEOXhay",
+      "role": "SUPER_ADMIN"
+    },
+    "regan": {
+      "username": "regan",
+      "password": "$2a$10$1ElNyJKeSDZm.ctnlXCuYu9rEop6sf0nykAdhC4cKDdMee5fSwKne",
+      "role": "USER",
+      "createdAt": "2025-02-26T04:45:41.705Z",
+      "isApproved": true
+    },
+    "hang": {
+      "username": "hang",
+      "password": "$2a$10$IT88FFk5gcfpmTsesvk1UOii0inh9Uk6SlFYEwtF1/nICails5dNq",
+      "role": "USER",
+      "createdAt": "2025-02-26T07:54:28.849Z",
+      "isApproved": true
+    },
+    "marcus": {
+      "username": "marcus",
+      "password": "$2a$10$i8TsDxNJ8k9Eg8yONzqj2uFwwQFoGky8RwMBy.AH0n0lyWROc5pee",
+      "role": "USER",
+      "createdAt": "2025-02-27T07:56:02.162Z",
+      "isApproved": false
+    }
+  }
+}

@@ -1,0 +1,210 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  padding: 20px;
+}
+
+.auth-box {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-box h2 {
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 32px;
+  font-size: 2em;
+  font-weight: 600;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.form-group label {
+  color: #4b5563;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #1f2937;
+  background: white;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.auth-button {
+  width: 100%;
+  padding: 12px 24px;
+  background: #4F46E5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+  box-sizing: border-box;
+}
+
+.auth-button:hover {
+  background: #4338CA;
+  transform: translateY(-1px);
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 24px;
+  color: #6b7280;
+  font-size: 0.875rem;
+  width: 100%;
+}
+
+.auth-link a {
+  color: #4F46E5;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+  color: #4338CA;
+}
+
+.error-message {
+  width: 100%;
+  background-color: #fee2e2;
+  color: #dc2626;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: 0.875rem;
+  box-sizing: border-box;
+}
+
+/* 响应式设计 */
+@media (max-width: 640px) {
+  .auth-box {
+    padding: 24px;
+    margin: 16px;
+  }
+}
+
+/* 确保所有元素使用相同的盒模型 */
+* {
+  box-sizing: border-box;
+}
+
+.success-message {
+  text-align: left;
+  padding: 20px;
+  background: #f0fdf4;
+  border: 1px solid #10b981;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.success-message h3 {
+  color: #065f46;
+  margin: 0 0 12px 0;
+}
+
+.success-message p {
+  color: #047857;
+  margin: 8px 0;
+}
+
+.success-message ul {
+  color: #047857;
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.success-message li {
+  margin: 4px 0;
+}
+
+/* 添加到现有样式中 */
+.auth-tabs {
+  display: flex;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 12px;
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.tab-button.active {
+  color: #4F46E5;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #4F46E5;
+}
+
+.tab-button:hover {
+  color: #4F46E5;
+}
+
+.submit-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: #6b7280;
+  font-size: 1.1rem;
+} 
