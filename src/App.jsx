@@ -6,10 +6,11 @@ import TodoList from './components/TodoList';
 import AdminUsers from './components/AdminUsers';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
+import config from './config';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/todolist">
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

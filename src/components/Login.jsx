@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Form, Input, Button, Card, message, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import '../styles/Login.css';
+import config from '../config';
 
 const { Title } = Typography;
 
@@ -13,8 +14,9 @@ function Login() {
 
   const onFinish = async (values) => {
     try {
+      console.log('Attempting to login with API URL:', config.API_URL);
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/login', {
+      const response = await fetch(`${config.API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
