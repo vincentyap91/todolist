@@ -16,7 +16,7 @@ function Login() {
     try {
       console.log('Attempting to login with API URL:', config.API_URL);
       setLoading(true);
-      const response = await fetch(`${config.API_URL}/login`, {
+      const response = await fetch(`${config.API_URL}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
