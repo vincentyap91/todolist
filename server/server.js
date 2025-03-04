@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 5000;
 // 安全中间件
 app.use(helmet());
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://vincentyap91.github.io'],
+  origin: ['http://localhost:5173', 'https://vincentyap91.github.io/todolist'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -42,6 +42,7 @@ app.use((err, req, res, next) => {
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
   next();
 });
 
