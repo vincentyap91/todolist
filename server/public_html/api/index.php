@@ -281,4 +281,4 @@ function jwt_decode($token, $secret) {
     }
     
     return json_decode($payload, true);
-} 
+}
