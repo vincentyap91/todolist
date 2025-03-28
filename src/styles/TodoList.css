@@ -61,6 +61,11 @@
   padding: 12px !important;
   transition: all 0.2s ease !important;
   margin: 0 !important;
+  transition: background-color 0.2s ease;
+}
+
+.todo-item:hover {
+  background-color: #fafafa;
 }
 
 .todo-item-wrapper.dragging .todo-item {
@@ -77,19 +82,14 @@
 }
 
 .drag-handle {
-  cursor: grab;
-  padding: 8px;
-  border-radius: 4px;
-  color: #9ca3af;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  cursor: move;
+  color: #999;
+  margin-right: 8px;
 }
 
-.drag-handle:hover {
-  background: #f3f4f6;
-  color: #6366f1;
+.dragging {
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .dragging .drag-handle {

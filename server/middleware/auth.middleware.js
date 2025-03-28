@@ -1,21 +1,25 @@
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = 'your-secret-key'; // 确保与登录时使用的密钥相同
+const User = require('../models/User');
 
-const verifyToken = (req, res, next) => {
+const verifyToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
     
     if (!token) {
-      console.log('No token provided');
       return res.status(401).json({ message: '未提供认证令牌' });
     }
 
-    const decoded = jwt.verify(token, SECRET_KEY);
-    console.log('Decoded token:', decoded);
-    req.user = decoded;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findByPk(decoded.id);
+
+    if (!user) {
+      return res.status(401).json({ message: '用户不存在' });
+    }
+
+    req.user = user;
     next();
   } catch (error) {
-    console.error('Token verification error:', error);
+    console.error('验证令牌失败:', error);
     res.status(401).json({ message: '无效的认证令牌' });
   }
 };

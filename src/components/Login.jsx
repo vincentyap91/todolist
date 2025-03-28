@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Form, Input, Button, Card, message, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import '../styles/Login.css';
-import config from '../config';
+import API_BASE_URL from '../config/api';
 
 const { Title } = Typography;
 
@@ -14,32 +14,42 @@ function Login() {
 
   const onFinish = async (values) => {
     try {
-      console.log('Attempting to login with API URL:', config.API_URL);
-      setLoading(true);
-      const response = await fetch(`${config.API_URL}/api/login`, {
+      console.log('尝试登录:', values);
+      console.log('API URL:', `${API_BASE_URL}/api/auth/login`);
+
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(values),
-        credentials: 'include'
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || '登录失败');
+      // 检查响应状态
+      if (response.status === 429) {
+        message.error('请求太频繁，请稍后再试');
+        return;
       }
 
+      console.log('服务器响应状态:', response.status);
       const data = await response.json();
-      localStorage.setItem('token', data.token);
-      
-      message.success('登录成功');
-      navigate('/');
+      console.log('登录响应:', data);
+
+      if (response.ok) {
+        // 确保正确存储 token 和用户信息
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        
+        message.success('登录成功');
+        
+        // 所有用户都先导航到任务页面
+        navigate('/todos');
+      } else {
+        message.error(data.message || '登录失败');
+      }
     } catch (error) {
-      console.error('Login error:', error);
-      message.error(error.message || '登录失败，请稍后重试');
-    } finally {
-      setLoading(false);
+      console.error('登录失败:', error);
+      message.error('登录失败，请重试');
     }
   };
 
@@ -87,7 +97,7 @@ function Login() {
           </Form.Item>
 
           <div className="register-link">
-            还没有账号？ <Link to="/register">立即注册</Link>
+            还没有账号？ <Link to="/register">注册新账户</Link>
           </div>
         </Form>
       </Card>

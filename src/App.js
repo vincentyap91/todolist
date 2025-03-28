@@ -1,8 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import Login from './Login';
-import Register from './Register';
+import Login from './components/Login';
+import Register from './components/Register';
 import './App.css';
+import { App as AntApp } from 'antd';
+import TodoList from './components/TodoList';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import UserManagement from './components/UserManagement';
+import Users from './pages/admin/Users';
+import PrivateRoute from './components/PrivateRoute';
+import AdminUsers from './components/AdminUsers';
+
+// 受保护的路由组件
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -197,104 +213,31 @@ function App() {
   }
 
   return (
-    <div className="app-container">
-      <div className="header">
-        <div className="header-content">
-          <h1>Todo List</h1>
-          {localStorage.getItem('currentUser') === 'Vincent' && (
-            <div className="tabs">
-              <button 
-                className={`tab-btn ${activeTab === 'tasks' ? 'active' : ''}`}
-                onClick={() => setActiveTab('tasks')}
-              >
-                Tasks
-              </button>
-              <button 
-                className={`tab-btn ${activeTab === 'admin' ? 'active' : ''}`}
-                onClick={() => setActiveTab('admin')}
-              >
-                Pending Approval
-              </button>
-            </div>
-          )}
-        </div>
-        <div className="header-actions">
-          <div className="profile-section">
-            <div className="profile-info">
-              <div className="profile-icon">
-                {localStorage.getItem('currentUser').charAt(0).toUpperCase()}
-              </div>
-              <div className="profile-details">
-                <span className="username">
-                  {localStorage.getItem('currentUser')}
-                  {localStorage.getItem('currentUser') === 'Vincent' && 
-                    <span className="admin-badge">Admin</span>
-                  }
-                </span>
-              </div>
-            </div>
-            <button onClick={handleLogout} className="logout-btn">
-              Logout
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {localStorage.getItem('currentUser') === 'Vincent' && activeTab === 'admin' ? (
-        <AdminPanel />
-      ) : (
-        <>
-          <div className="add-todo">
-            <input
-              type="text"
-              value={newTodo}
-              onChange={(e) => setNewTodo(e.target.value)}
-              placeholder="Add a new task"
-              onKeyPress={handleKeyPress}
-            />
-            <button onClick={() => addTodo(newTodo)}>Add</button>
-          </div>
-
-          <div className="task-count">
-            <span>{todos.length} tasks</span>
-            <span className="task-completed">
-              {todos.filter(todo => todo.completed).length} completed
-            </span>
-          </div>
-
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="todos">
-              {(provided) => (
-                <div
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  {todos.map((todo, index) => (
-                    <Draggable
-                      key={todo.id}
-                      draggableId={todo.id.toString()}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          className="todo-item"
-                        >
-                          {/* ... rest of todo item content ... */}
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-        </>
-      )}
-    </div>
+    <AntApp>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route 
+            path="/todos" 
+            element={
+              <PrivateRoute>
+                <TodoList />
+              </PrivateRoute>
+            } 
+          />
+          <Route 
+            path="/admin/users" 
+            element={
+              <PrivateRoute adminOnly>
+                <AdminUsers />
+              </PrivateRoute>
+            } 
+          />
+          <Route path="/" element={<Navigate to="/todos" />} />
+        </Routes>
+      </Router>
+    </AntApp>
   );
 }
 
